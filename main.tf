@@ -7,11 +7,14 @@ resource "random_pet" "petname" {
   separator = "-"
 }
 
+resource "aws_s3_bucket_acl" "example" {
+  bucket = aws_s3_bucket.sample.id
+  acl    = "public-read"
+}
+
 resource "aws_s3_bucket" "sample" {
   bucket = random_pet.petname.id
 
-  acl    = "public-read"
-  region = "us-west-2"
 
   tags = {
     public_bucket = true
